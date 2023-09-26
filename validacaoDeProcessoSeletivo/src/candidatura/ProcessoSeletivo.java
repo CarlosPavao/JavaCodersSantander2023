@@ -1,22 +1,60 @@
 package candidatura;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProcessoSeletivo {
     public static void main(String[] args) {
         System.out.println("Processo Seletivo!");
 
+        String [] candidatos = {"Felipe","Marcia","Julia","Paulo","Augusto"};
+        
+        for(int i=0; i<candidatos.length; i++){
+            entrandoEmContato(candidatos[i]);
+        }
+        
+
+        System.out.println("--------------------------------------------------");
+
+
+
         analisarCandidato(1900.0);
         analisarCandidato(2200.0);
         analisarCandidato(2000.0);
-
-        System.out.println();
-        System.out.println();
-        
+        System.out.println("--------------------------------------------------");
         selecaoDeCandidatos();
+        System.out.println("--------------------------------------------------");
         imprimirSelecionados();
-    }
+        System.out.println("--------------------------------------------------");
 
+    }
+    
+	static boolean atender() {
+		return new Random().nextInt(3)==1;	
+	}
+
+    static void entrandoEmContato(String candidato) {
+		
+		int tentativasRealizadas = 1;
+		boolean continuarTentando = true;
+		boolean atendeu=false;
+		do {
+			atendeu= atender();
+			continuarTentando = !atendeu;
+			if(continuarTentando)
+				tentativasRealizadas++;
+			else
+				System.out.println("CONTATO REALIZADO COM SUCESSO");
+			
+		}while(continuarTentando && tentativasRealizadas<3);
+		
+		if(atendeu)
+			System.out.println("CONSEGUIMOS CONTATO COM " + candidato +" NA " + tentativasRealizadas + " TENTATIVA");
+		else
+			System.out.println("NÃO CONSEGUIMOS CONTATO COM " + candidato +", NÚMERO MAXIMO TENTATIVAS " + tentativasRealizadas + " REALIZADA");
+		
+		
+	}
     static void selecaoDeCandidatos(){
         String [] candidatos = {"Felipe","Marcia","Julia","Paulo","Augusto", "Monica", "Fabricio","Mirella","Daniela","Carlos"};
 
